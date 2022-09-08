@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'basic/basic.dart';
+import 'basic/basic_page.dart';
 import 'utils/function.dart';
-import 'widget/widget.dart';
+import 'widget/widget_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             PageInfo("网络请求", (ctx) => const BasicPage()),
             PageInfo("本地化", (ctx) => const BasicPage()),
             PageInfo("高级", (ctx) => const BasicPage()),
+            PageInfo("文摘", (ctx) => const BasicPage()),
           ],
         ),
       ),
