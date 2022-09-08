@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/function.dart';
-import 'foundation/widget_foundation.dart';
+import 'foundation/widget_foundation_page.dart';
 
 class WidgetPage extends StatelessWidget {
   const WidgetPage({Key? key}) : super(key: key);
