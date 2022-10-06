@@ -12,6 +12,7 @@ void openPage(BuildContext context, PageInfo page) {
           title: page.title,
           body: page.builder(context),
           padding: page.padding,
+          hideAppBar: page.hideAppBar,
         );
       },
     ),
@@ -33,12 +34,14 @@ class PageInfo {
     this.title,
     this.builder, {
     this.withScaffold = true,
+    this.hideAppBar = false,
     this.padding = false,
   });
 
   String title;
   WidgetBuilder builder;
   bool withScaffold;
+  bool hideAppBar;
   bool padding;
 }
 
@@ -48,18 +51,22 @@ class PageScaffold extends StatelessWidget {
     required this.title,
     required this.body,
     required this.padding,
+    required this.hideAppBar,
   }) : super(key: key);
 
   final String title;
   final Widget body;
   final bool padding;
+  final bool hideAppBar;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: hideAppBar
+          ? null
+          : AppBar(
+              title: Text(title),
+            ),
       body: padding
           ? Padding(
               padding: const EdgeInsets.all(16.0),

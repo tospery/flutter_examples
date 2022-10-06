@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'widget_scrollable_nestedscrollview_page.dart';
+import '../widget_scrollable_page.dart';
 
 class Wsn05Page extends StatelessWidget {
   const Wsn05Page({super.key});
