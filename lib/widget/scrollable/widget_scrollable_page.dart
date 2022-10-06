@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/function.dart';
 import 'customscrollview/widget_scrollable_customscrollview_page.dart';
+import 'customsliver/widget_scrollable_customsliver_page.dart';
 import 'nestedscrollview/widget_scrollable_nestedscrollview_page.dart';
 
 class WidgetScrollablePage extends StatelessWidget {
@@ -15,6 +16,10 @@ class WidgetScrollablePage extends StatelessWidget {
           PageInfo(
             "CustomScrollView和Slivers",
             (ctx) => const WidgetScrollableCustomScrollViewPage(),
+          ),
+          PageInfo(
+            "自定义Sliver",
+            (ctx) => const WidgetScrollableCustomSliverPage(),
           ),
           PageInfo(
             "嵌套可滚动组件NestedScrollView",
