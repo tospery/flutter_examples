@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart' hide Page;
 import 'package:flukit/example/example.dart';
+import 'getwidget/getwidget_page.dart';
 import 'inaction/inaction_page.dart';
 
 void main() {
@@ -74,6 +75,7 @@ class MyHomePage extends StatefulWidget {
 List<Page> getRoutes() {
   return [
     Page("Flutter实战（第二版）", const InactionPage()),
+    Page("GetWidget教程", const GetwidgetPage()),
     // Page("AfterLayout", const AfterLayoutRoute(), showLog: true),
     // Page(
     //   "AccurateSizedBox",

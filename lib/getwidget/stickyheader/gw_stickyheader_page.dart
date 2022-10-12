@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide Page;
 import 'package:flukit/example/example.dart';
 
-class InactionPage extends StatelessWidget {
-  const InactionPage({super.key});
+class GWStickyHeaderPage extends StatelessWidget {
+  const GWStickyHeaderPage({super.key});
 
   List<Page> getRoutes() {
     return [];
