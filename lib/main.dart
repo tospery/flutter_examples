@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart' hide Page;
 import 'package:flukit/example/example.dart';
-import 'getwidget/getwidget_page.dart';
-import 'inaction/inaction_page.dart';
-import 'open/open_page.dart';
+import 'package:flutter_examples/module/refresh_stretch_appbar_page.dart';
 
 void main() {
   final logEmitter = getGlobalLogEmitter();
@@ -75,9 +73,14 @@ class MyHomePage extends StatefulWidget {
 //防止热更新失效，我们不定义为静态变量
 List<Page> getRoutes() {
   return [
-    Page("Flutter实战（第二版）", const InactionPage()),
-    Page("GetWidget教程", const GetwidgetPage()),
-    Page("开源项目", const OpenPage()),
+    Page(
+      "下拉刷新+下拉缩放+上滚导航",
+      const RefreshStretchAppbarPage(),
+      withScaffold: false,
+    ),
+    // Page("Flutter实战（第二版）", const InactionPage()),
+    // Page("GetWidget教程", const GetwidgetPage()),
+    // Page("开源项目", const OpenPage()),
   ];
 }
 
