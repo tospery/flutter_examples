@@ -1,8 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:draggable_home/draggable_home.dart';
 
+// 缺少刷新
 class RefreshStretchAppbarPage extends StatefulWidget {
   const RefreshStretchAppbarPage({super.key});
 
@@ -12,58 +13,129 @@ class RefreshStretchAppbarPage extends StatefulWidget {
 }
 
 class _RefreshStretchAppbarPageState extends State<RefreshStretchAppbarPage> {
-  final _random = Random();
-  final int _itemCount = 20;
-  final ScrollController _controller = ScrollController();
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        controller: _controller,
-        physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
-        slivers: <Widget>[
-          SliverAppBar(
-            backgroundColor: context.theme.primaryColor,
-            pinned: true,
-            stretch: true,
-            // elevation: 10.0,
-            // forceElevated: true,
-            expandedHeight: context.width / 460.0 * 245.0,
-            flexibleSpace: FlexibleSpaceBar(
-              stretchModes: const [
-                StretchMode.zoomBackground,
-                StretchMode.fadeTitle,
-              ],
-              background: Image.asset(
-                "res/images/sea.png",
-                fit: BoxFit.fill,
-              ),
-              centerTitle: false,
-              title: const Text(
-                'Profile',
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-              expandedTitleScale: 1.5,
-              titlePadding: EdgeInsetsDirectional.only(start: 0, bottom: 0),
-            ),
+    return DraggableHome(
+      // leading: const Icon(Icons.arrow_back_ios),
+      leading: Container(),
+      title: const Text("Profile"),
+      headerWidget: headerWidget(context),
+      body: [
+        listView(),
+      ],
+      curvedBodyRadius: 0,
+      backgroundColor: context.theme.primaryColor,
+      appBarColor: context.theme.primaryColor,
+      // stretchTriggerOffset: 100,
+      // fullyStretchable: true,
+      headerExpandedHeight: 245.0 / 460.0 * context.width / context.height,
+    );
+  }
+
+  Row headerBottomBarWidget() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        Icon(
+          Icons.settings,
+          color: Colors.white,
+        ),
+      ],
+    );
+  }
+
+  Widget headerWidget(BuildContext context) {
+    // return Container(
+    //   color: Colors.red,
+    //   child: Center(
+    //     child: Text(
+    //       "Title",
+    //       // style: Theme.of(context)
+    //       //     .textTheme
+    //       //     .headline2!
+    //       //     .copyWith(color: Colors.white70),
+    //     ),
+    //   ),
+    // );
+    return Image.asset(
+      "res/images/sea.png",
+      fit: BoxFit.fill,
+    );
+  }
+
+  ListView listView() {
+    return ListView.builder(
+      padding: const EdgeInsets.only(top: 0),
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 20,
+      shrinkWrap: true,
+      itemBuilder: (context, index) => Card(
+        color: Colors.white70,
+        child: ListTile(
+          leading: CircleAvatar(
+            child: Text("$index"),
           ),
-          SliverFixedExtentList(
-            itemExtent: 50,
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return ListTile(
-                    title: Text('${_random.nextInt(100)}'),
-                    onTap: () => debugPrint('$index'));
-              },
-              childCount: _itemCount,
-            ),
-          ),
-        ],
+          title: const Text("Title"),
+          subtitle: const Text("Subtitile"),
+        ),
       ),
     );
   }
+
+  // final _random = Random();
+  // final int _itemCount = 20;
+  // final ScrollController _controller = ScrollController();
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: CustomScrollView(
+  //       controller: _controller,
+  //       physics: const BouncingScrollPhysics(
+  //           parent: AlwaysScrollableScrollPhysics()),
+  //       slivers: <Widget>[
+  //         SliverAppBar(
+  //           backgroundColor: context.theme.primaryColor,
+  //           pinned: true,
+  //           stretch: true,
+  //           // elevation: 10.0,
+  //           // forceElevated: true,
+  //           expandedHeight: context.width / 460.0 * 245.0,
+  //           flexibleSpace: FlexibleSpaceBar(
+  //             stretchModes: const [
+  //               StretchMode.zoomBackground,
+  //               StretchMode.fadeTitle,
+  //             ],
+  //             background: Image.asset(
+  // "res/images/sea.png",
+  // fit: BoxFit.fill,
+  //             ),
+  //             centerTitle: false,
+  //             title: const Text(
+  //               'Profile',
+  //               style: TextStyle(fontSize: 20, color: Colors.white),
+  //             ),
+  //             expandedTitleScale: 1.5,
+  //             titlePadding: EdgeInsetsDirectional.only(start: 0, bottom: 0),
+  //           ),
+  //         ),
+  //         SliverFixedExtentList(
+  //           itemExtent: 50,
+  //           delegate: SliverChildBuilderDelegate(
+  //             (context, index) {
+  //               return ListTile(
+  //                   title: Text('${_random.nextInt(100)}'),
+  //                   onTap: () => debugPrint('$index'));
+  //             },
+  //             childCount: _itemCount,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
 
 // class RefreshStretchAppbarPage extends StatefulWidget {
