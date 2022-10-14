@@ -3,6 +3,8 @@ import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart' hide Page;
 import 'package:flukit/example/example.dart';
 import 'package:flutter_examples/module/refresh_stretch_appbar_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 void main() {
   final logEmitter = getGlobalLogEmitter();
@@ -37,21 +39,54 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final routesMap = mapRoutes(getRoutes());
-      return MaterialApp(
-        title: 'Examples',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        routes: routesMap,
-        onGenerateRoute: (RouteSettings settings) {
-          String routeName = settings.name!.substring(1).toLowerCase();
-          routeName = Uri.decodeComponent(routeName);
-          return MaterialPageRoute(
-            builder: routesMap[routeName] ??
-                (context) => const MyHomePage(title: 'Flutter Examples'),
-          );
+
+      return RefreshConfiguration(
+        footerTriggerDistance: 15,
+        dragSpeedRatio: 0.91,
+        headerBuilder: () => const MaterialClassicHeader(),
+        footerBuilder: () => const ClassicFooter(),
+        enableLoadingWhenNoData: false,
+        enableRefreshVibrate: false,
+        enableLoadMoreVibrate: false,
+        shouldFooterFollowWhenNotFull: (state) {
+          // If you want load more with noMoreData state ,may be you should return false
+          return false;
         },
-        home: const MyHomePage(title: 'Flutter Examples'),
+        child: MaterialApp(
+          title: 'Examples',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          localizationsDelegates: const [
+            RefreshLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
+          ],
+          supportedLocales: const [
+            Locale('zh', 'CN'),
+            Locale('en', 'US'),
+          ],
+          locale: const Locale('zh', 'CN'),
+          localeListResolutionCallback: (locales, supported) {
+            for (var loc in locales ?? []) {
+              for (var spt in supported) {
+                if (spt.languageCode == loc.languageCode) return spt;
+              }
+            }
+            return const Locale('zh', 'CN');
+          },
+          routes: routesMap,
+          onGenerateRoute: (RouteSettings settings) {
+            String routeName = settings.name!.substring(1).toLowerCase();
+            routeName = Uri.decodeComponent(routeName);
+            return MaterialPageRoute(
+              builder: routesMap[routeName] ??
+                  (context) => const MyHomePage(title: 'Flutter Examples'),
+            );
+          },
+          home: const MyHomePage(title: 'Flutter Examples'),
+        ),
       );
     });
   }
@@ -78,9 +113,6 @@ List<Page> getRoutes() {
       const RefreshStretchAppbarPage(),
       withScaffold: false,
     ),
-    // Page("Flutter实战（第二版）", const InactionPage()),
-    // Page("GetWidget教程", const GetwidgetPage()),
-    // Page("开源项目", const OpenPage()),
   ];
 }
 

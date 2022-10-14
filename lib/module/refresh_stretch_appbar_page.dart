@@ -1,16 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_examples/utils/item.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class RefreshStretchAppbarPage extends StatefulWidget {
   const RefreshStretchAppbarPage({super.key});
 
   @override
-  State<RefreshStretchAppbarPage> createState() =>
-      _RefreshStretchAppbarPageState();
+  State<StatefulWidget> createState() {
+    return _RefreshStretchAppbarPageState();
+  }
 }
 
 class _RefreshStretchAppbarPageState extends State<RefreshStretchAppbarPage> {
-  RefreshController _refreshController = RefreshController();
+  final RefreshController _refreshController = RefreshController();
   final Key linkKey = GlobalKey();
   List<String> data = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   final ScrollController _scrollController = ScrollController();
@@ -18,7 +21,6 @@ class _RefreshStretchAppbarPageState extends State<RefreshStretchAppbarPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _scrollController.addListener(() {
       final bool ifdismissAppbar = _scrollController.offset >= 136.0;
       if (dismissAppbar != ifdismissAppbar) {
@@ -31,7 +33,6 @@ class _RefreshStretchAppbarPageState extends State<RefreshStretchAppbarPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _refreshController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -39,9 +40,9 @@ class _RefreshStretchAppbarPageState extends State<RefreshStretchAppbarPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return RefreshConfiguration.copyAncestor(
       context: context,
+      maxOverScrollExtent: 100,
       child: Scaffold(
         body: Stack(
           children: <Widget>[
@@ -56,7 +57,7 @@ class _RefreshStretchAppbarPageState extends State<RefreshStretchAppbarPage> {
                     controller: _refreshController,
                     header: LinkHeader(linkKey: linkKey),
                     onRefresh: () async {
-                      await Future.delayed(Duration(milliseconds: 3000));
+                      await Future.delayed(const Duration(milliseconds: 3000));
                       _refreshController.refreshCompleted();
                     },
                     child: CustomScrollView(
@@ -64,7 +65,7 @@ class _RefreshStretchAppbarPageState extends State<RefreshStretchAppbarPage> {
                       slivers: <Widget>[
                         SliverToBoxAdapter(
                           child: Image.asset(
-                            "images/qqbg.jpg",
+                            "res/images/qqbg.jpg",
                             fit: BoxFit.fill,
                             height: 300.0,
                           ),
@@ -83,7 +84,7 @@ class _RefreshStretchAppbarPageState extends State<RefreshStretchAppbarPage> {
                 )
               ],
             ),
-            Container(
+            SizedBox(
               height: 64.0,
               child: AppBar(
                 backgroundColor:
@@ -97,17 +98,15 @@ class _RefreshStretchAppbarPageState extends State<RefreshStretchAppbarPage> {
           ],
         ),
       ),
-      maxOverScrollExtent: 100,
     );
   }
 }
 
 class SimpleLinkBar extends StatefulWidget {
-  SimpleLinkBar({Key key}) : super(key: key);
+  const SimpleLinkBar({required Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _SimpleLinkBarState();
   }
 }
@@ -115,50 +114,48 @@ class SimpleLinkBar extends StatefulWidget {
 class _SimpleLinkBarState extends State<SimpleLinkBar>
     with RefreshProcessor, SingleTickerProviderStateMixin {
   RefreshStatus _status = RefreshStatus.idle;
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     _animationController = AnimationController(vsync: this);
     super.initState();
   }
 
   @override
   Future endRefresh() {
-    // TODO: implement endRefresh
-    _animationController.animateTo(0.0, duration: Duration(milliseconds: 300));
+    _animationController.animateTo(0.0,
+        duration: const Duration(milliseconds: 300));
     return Future.value();
   }
 
   @override
   void onOffsetChange(double offset) {
-    // TODO: implement onOffsetChange
-    if (_status != RefreshStatus.refreshing)
+    if (_status != RefreshStatus.refreshing) {
       _animationController.value = offset / 80.0;
+    }
     super.onOffsetChange(offset);
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ScaleTransition(
-      child: CupertinoActivityIndicator(),
       scale: _animationController,
+      child: const CupertinoActivityIndicator(),
     );
   }
 
   @override
-  void onModeChange(RefreshStatus mode) {
-    // TODO: implement onModeChange
+  void onModeChange(RefreshStatus? mode) {
     super.onModeChange(mode);
-    _status = mode;
+    if (mode != null) {
+      _status = mode;
+    }
     setState(() {});
   }
 }
