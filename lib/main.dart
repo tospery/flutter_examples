@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart' hide Page;
 import 'package:flukit/example/example.dart';
+import 'package:flutter_examples/module/flukit_profile.dart';
 import 'package:flutter_examples/module/refresh_stretch_appbar_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -111,6 +112,11 @@ List<Page> getRoutes() {
     Page(
       "下拉刷新+下拉缩放+上滚导航",
       const RefreshStretchAppbarPage(),
+      withScaffold: false,
+    ),
+    Page(
+      "Profile（Flukit）",
+      const FlukitProfile(),
       withScaffold: false,
     ),
   ];
