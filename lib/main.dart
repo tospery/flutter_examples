@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart' hide Page;
 import 'package:flukit/example/example.dart';
+import 'package:flutter_examples/module/appbar_profile.dart';
 import 'package:flutter_examples/module/flukit_profile.dart';
 import 'package:flutter_examples/module/refresh_stretch_appbar_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -117,6 +118,11 @@ List<Page> getRoutes() {
     Page(
       "Profile（Flukit）",
       const FlukitProfile(),
+      withScaffold: false,
+    ),
+    Page(
+      "Profile（AppBar）",
+      const AppBarProfile(),
       withScaffold: false,
     ),
   ];
