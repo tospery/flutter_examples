@@ -26,5 +26,5 @@ flutter:
   assets:
     - res/images/
     - res/fonts/
-    - res/animation/
-    - res/jsons/
+    # - res/animation/
+    # - res/jsons/
