@@ -5,8 +5,11 @@ import 'package:flukit/example/example.dart';
 import 'package:flutter_examples/module/appbar_profile.dart';
 import 'package:flutter_examples/module/flukit_profile.dart';
 import 'package:flutter_examples/module/refresh_stretch_appbar_page.dart';
+import 'package:flutter_examples/module/userinfo_gf.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'module/userinfo_listtile.dart';
 
 void main() {
   final logEmitter = getGlobalLogEmitter();
@@ -124,6 +127,18 @@ List<Page> getRoutes() {
       "Profile（AppBar）",
       const AppBarProfile(),
       withScaffold: false,
+    ),
+    Page(
+      'Userinfo(ListTile)',
+      const UserinfoListTile(),
+      withScaffold: false,
+      padding: false,
+    ),
+        Page(
+      'Userinfo(GF)',
+      const UserinfoGFPage(),
+      withScaffold: false,
+      padding: false,
     ),
   ];
 }
